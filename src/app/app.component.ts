@@ -6,18 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  nome = 'Dionlan'
-  adicionado = false;
-  funcionarios: any = [];
-  ultimoId = 0;
-
-  adicionar(){
-  console.log(`Adicionando ${this.nome}`)
-  this.adicionado = true;
-
-  this.funcionarios.push({
-      id: ++this.ultimoId,
-      nome: this.nome
-    });
+    funcionarios: any = [];
+    aoAdicionar(funcionario: any){
+    this.funcionarios.push(funcionario)
   }
 }
