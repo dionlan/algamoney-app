@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'algamoney-app';
+  nome = 'Dionlan'
+
+  adicionar(){
+    console.log(`Adicionando ${this.nome}`)
+
+  }
+  alterarNome(event: any){
+    this.nome = event.target.value
+  }
 }
