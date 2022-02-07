@@ -9,11 +9,6 @@ export class AppComponent {
   nome = 'Dionlan'
 
   adicionar(){
-  console.log(this.nome)
-
-  }
-  alterarNome(event: any){
-    this.nome = event.target.value;
-
+  console.log(`Adicionando ${this.nome}` )
   }
 }
