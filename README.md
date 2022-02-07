@@ -1,4 +1,5 @@
 # AlgamoneyApp
+Aplicação frontend em AngularJS que irá consumir a API Spring Rest algamoney-api, ambos em desenvolvimento em projeto de estudo da escola Algaworks.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.2.
 
