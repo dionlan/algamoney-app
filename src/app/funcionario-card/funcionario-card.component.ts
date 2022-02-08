@@ -16,6 +16,14 @@ export class FuncionarioCardComponent {
 
   @Input() funcionario: any;
 
+  //getClassesCss(){
+   // return ['badge bg-primary']
+  //}
+
+  isAdmin(){
+    return this.funcionario.nome.startsWith('D')
+  }
+
   getEstilosCartao(){
     return {
       'border-width.px' : this.funcionario.id,
