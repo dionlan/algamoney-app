@@ -25,6 +25,8 @@ import {DropdownModule} from 'primeng/dropdown';
 import {ProgressBarModule} from 'primeng/progressbar';
 import {RippleModule} from 'primeng/ripple';
 import {BadgeModule} from 'primeng/badge';
+import {TooltipModule} from 'primeng/tooltip';
+import {CalendarModule} from 'primeng/calendar';
 
 
 
@@ -56,7 +58,9 @@ import {BadgeModule} from 'primeng/badge';
     DropdownModule,
     ProgressBarModule,
     RippleModule,
-    BadgeModule
+    BadgeModule,
+    TooltipModule,
+    CalendarModule
 
   ],
   

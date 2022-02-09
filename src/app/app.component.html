@@ -6,23 +6,24 @@
         <div class="p-fluid col-12">
             <div class="field grid pt-3">
                 <span class="p-float-label col-12">
-                    <input type="text" id="inputtext" pInputText class="inputfield"> 
+                    <input type="text" id="inputtext" pInputText class="inputfield" pTooltip="Informa uma descrição" tooltipPosition="top"> 
                     <label> <strong> Descrição </strong> </label>
                 </span>     
             </div>  
             <div class="field grid pt-3">
                 <span class="p-float-label col-3">
-                    <input type="text" pInputText class="inputfield"> 
+                    <input type="text" pInputText class="inputfield" pTooltip="Informe a data do vencimento" tooltipPosition="top"> 
                     <label> <strong> Vencimento </strong> </label>
                 </span>
 
                 <span class="p-float-label col-3">
-                    <input type="text" pInputText class="inputfield"> 
+                    <input type="text" pInputText class="inputfield" pTooltip="Informe a data final do pagamento" tooltipPosition="top"> 
                     <label> <strong> Até </strong> </label>
                 </span> 
             </div>
             <div class="field grid col-2">
-                <button pButton pRipple icon="pi pi-search" class="p-button-info" type="button" label="Pesquisar" [loading]="ativaLoadingButtonSearch"></button>
+                <button pButton pRipple icon="pi pi-search" class="p-button-info" type="button" label="Pesquisar" [loading]="ativaLoadingButtonSearch"
+                pTooltip="Pesquisar" tooltipPosition="top"> </button>
             </div>
         </div>
               
@@ -54,15 +55,19 @@
                             </span>
                         </td>
                         <td>
-                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info mr-2" (click)="editLancamento(l)"></button>
-                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteLancamento(l)"></button>
+                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info mr-2" (click)="editLancamento(l)"
+                            pTooltip="Editar" tooltipPosition="top"></button>
+
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteLancamento(l)"
+                            pTooltip="Deletar" tooltipPosition="top"></button>
                         </td>
 
                     </tr>
                 </ng-template>
 
                 <ng-template pTemplate="paginatorleft">
-                    <button pButton pRipple icon="pi pi-wallet" class="p-button-info" type="button" label="Novo Lançamento" [loading]="ativaLoadingButtonSearch"></button>
+                    <button pButton pRipple icon="pi pi-wallet" class="p-button-info" type="button" label="Novo Lançamento" [loading]="ativaLoadingButtonSearch"
+                    pTooltip="Cadastrar novo lançamento" tooltipPosition="top"></button>
                 </ng-template>
 
             </p-table>
@@ -101,11 +106,11 @@
             <div class="formgrid grid">
                 <div class="field col">
                     <label for="due_date">Vencimento</label>
-                    <input type="text" pInputText id="due_date" [(ngModel)]="lancamento.due_date" required autofocus /> 
+                    <p-calendar id="due_date" [(ngModel)]="lancamento.due_date"> </p-calendar>
                 </div>
                 <div class="field col">
                     <label for="payment_date">Pagamento</label>
-                <input type="text" pInputText id="payment_date" [(ngModel)]="lancamento.payment_date" required autofocus /> 
+                    <p-calendar id="payment_date" [(ngModel)]="lancamento.payment_date"></p-calendar>
                 </div>
             </div>
 
