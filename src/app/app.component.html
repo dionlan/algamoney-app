@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="container">
     
     <div class="p-card">
@@ -25,32 +26,81 @@
             </div>
         </div>
               
-    <div class="p-fluid col-12">
-        <p-table [value]="lancamentos" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll"
-        currentPageReportTemplate="Lançamentos de {first} até {last} de {totalRecords} registros" [rowsPerPageOptions]="[10,25,50]">
-        <ng-template pTemplate="header">
-            <tr>
-                <th>Tipo</th>
-                <th>Descrição</th>
-                <th>Data de Vencimento</th>
-                <th>Data de Pagamento</th>
-                <th>Valor</th>
-                <th>Nome</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-f>
-            <tr>
-                <td>{{f.transaction_type}}</td>
-                <td>{{f.description}}</td>
-                <td>{{f.due_date}}</td>
-                <td>{{f.payment_date}}</td>
-                <td>{{f.amount}}</td>
-                <td>{{f.name}}</td>
+        <div class="p-fluid col-12" >
+            <p-table [value]="lancamentos" [paginator]="true" [rows]="10" [globalFilterFields]="['transaction_type','description','due_date','payment_date', 'amount', 'name']" 
+                [showCurrentPageReport]="true" responsiveLayout="scroll" currentPageReportTemplate="Lançamentos de {first} até {last} de {totalRecords} registros" 
+                [rowsPerPageOptions]="[10,25,50]">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Descrição</th>
+                        <th>Data de Vencimento</th>
+                        <th>Data de Pagamento</th>
+                        <th>Valor</th>
+                        <th>Nome</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-l>
+                    <tr>
+                        <td>{{l.transaction_type}}</td>
+                        <td>{{l.description}}</td>
+                        <td>{{l.due_date}}</td>
+                        <td>{{l.payment_date}}</td>
+                        <td>{{l.amount | currency:'BRL'}}</td>
+                        <td>{{l.name}}</td>
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editLancamento(l)"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteLancamento(l)"></button>
+                        </td>
 
-            </tr>
-        </ng-template>
-    </p-table>
+                    </tr>
+                </ng-template>
 
+            </p-table>
+        </div>
     </div>
 
+    <p-dialog [(visible)]="lancamentoDialog" [style]="{width: '550px'}" header="Lancamento Detalhado" [modal]="true" styleClass="p-fluid">
+        <ng-template pTemplate="content">
+            <div class="p-field">
+                <label for="transaction_type">Tipo</label>
+                <input type="text" pInputText id="transaction_type" [(ngModel)]="lancamento.transaction_type" required autofocus />
+                <small class="p-invalid" *ngIf="submitted && !lancamento.transaction_type">Tipo é obrigatório.</small>
+            </div>
+            <div class="p-field">
+                <label for="description">Descrição</label>
+                <textarea id="description" pInputTextarea [(ngModel)]="lancamento.description" required rows="3" cols="20"></textarea>
+            </div>
+    
+            <div class="p-formgrid p-grid">
+                <div class="p-field p-col">
+                    <label for="due_date">Vencimento</label>
+                    <input type="text" pInputText id="due_date" [(ngModel)]="lancamento.due_date" required autofocus /> 
+                </div>
+                <div class="p-field p-col">
+                    <label for="payment_date">Pagamento</label>
+                <input type="text" pInputText id="payment_date" [(ngModel)]="lancamento.payment_date" required autofocus /> 
+                </div>
+            </div>
+
+            <div class="p-formgrid p-grid">
+                <div class="p-field p-col">
+                    <label for="amount">Valor</label>
+                    <p-inputNumber id="amount" [(ngModel)]="lancamento.amount" mode="currency" currency="BRL" locale="pt-BR" ></p-inputNumber> 
+                </div>
+                <div class="p-field p-col">
+                    <label for="name">Nome</label>
+                <input type="text" pInputText id="name" [(ngModel)]="lancamento.name" required autofocus /> 
+                </div>
+            </div>
+
+        </ng-template>
+        
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+            <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
+        </ng-template>
+    </p-dialog>
+
 </div>
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

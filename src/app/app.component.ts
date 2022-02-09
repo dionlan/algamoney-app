@@ -1,29 +1,108 @@
 import { Component } from '@angular/core';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { Lancamento } from './models/lancamento';
+import { LancamentoService } from './services/lancamentoService';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
+  styles: [`
+        :host ::ng-deep .p-dialog .product-image {
+            width: 150px;
+            margin: 0 auto 2rem auto;
+            display: block;
+        }
+    `],
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  lancamentos = [
-    { "transaction_type" : "RECEITA","description" : "Salário Mensal", "due_date" : "2021-06-10", "payment_date" : null, "amount" : 6500.00, "name" : "João Silva" },
-    { "transaction_type" : "RECEITA", "description" : "Serviço Voluntário", "due_date" : "2021-06-22", "payment_date" : null, "amount" : 1500.00, "name" : "João Silva"	},
-    { "transaction_type" : "DESPESA", "description" : "Academia", "due_date" : "2021-06-10", "payment_date" : "2021-06-05", "amount" : 100.00, "name" : "João Silva" },
-    { "transaction_type" : "DESPESA", "description" : "Conta do Celular", "due_date" : "2021-06-10", "payment_date" : "2021-06-02", "amount" : 69.00, "name" : "João Silva"	},
-    { "transaction_type" : "RECEITA", "description" : "Salário mensal", "due_date" : "2017-06-10", "payment_date" : null, "amount" : 6500.00, "name" : "João Silva" },
-    { "transaction_type" : "DESPESA", "description" : "Lanche", "due_date" : "2017-06-10", "payment_date" : null, "amount" : 10.20, "name" : "João Silva" },
-    { "transaction_type" : "DESPESA", "description" : "Bahamas", "due_date" : "2017-02-10", "payment_date" : "2017-02-10", "amount" : 100.32, "name" : "Maria Rita" },
-    { "transaction_type" : "DESPESA", "description" : "Café", "due_date" : "2017-04-10", "payment_date" : "2017-04-10", "amount" : 4.32, "name" : "Maria Rita" },
-    { "transaction_type" : "RECEITA", "description" : "Top Club", "due_date" : "2017-06-10", "payment_date" : null, "amount" : 120.00, "name" : "Pedro Santos" },
-    { "transaction_type" : "DESPESA", "description" : "Instrumentos", "due_date" : "2017-06-10", "payment_date" : null, "amount" : 1040.32, "name" : "Pedro Santos" },
-    { "transaction_type" : "RECEITA", "description" : "CEMIG", "due_date" : "2017-02-10", "payment_date" : "2017-02-10", "amount" : 110.44, "name" : "Ricardo Pereira" },
-    { "transaction_type" : "DESPESA", "description" : "Eletrônicos", "due_date" : "2017-04-10", "payment_date" : "2017-04-10", "amount" : 2100.32, "name" : "Ricardo Pereira" },
-    { "transaction_type" : "DESPESA", "description" : "DMAE", "due_date" : "2017-06-10", "payment_date" : null, "amount" : 200.30, "name" : "Josué Mariano" },
-    { "transaction_type" : "DESPESA", "description" : "Café", "due_date" : "2017-06-10", "payment_date" : null, "amount" : 8.32, "name" : "Josué Mariano" },
-    { "transaction_type" : "RECEITA", "description" : "Extra", "due_date" : "2017-03-10", "payment_date" : "2017-03-10", "amount" : 1010.32, "name" : "Pedro Barbosa" },
-    { "transaction_type" : "DESPESA", "description" : "Bahamas", "due_date" : "2017-06-10", "payment_date" : null, "amount" : 500.00, "name" : "Henrique Medeiros" },
-    { "transaction_type" : "DESPESA", "description" : "Top Club", "due_date" : "2017-03-10", "payment_date" : "2017-03-10", "amount" : 400.32, "name" : "Carlos Santana" },
-    { "transaction_type" : "DESPESA", "description" : "Despachante", "due_date" : "2017-06-10", "payment_date" : null, "amount" : 123.64, "name" : "Leonardo Oliveira" },
-    { "transaction_type" : "RECEITA", "description" : "Pneus", "due_date" : "2017-04-10", "payment_date" : "2017-04-10", "amount" : 665.33, "name" : "Isabela Martins" }
-  ]
+
+  lancamentoDialog: boolean = false;
+  submitted: boolean = false;
+  lancamentos: Lancamento[] = [];
+
+  lancamento: Lancamento = {
+      id: '',
+      transaction_type: '',
+      description: '',
+      due_date: '',
+      payment_date: '',
+      amount: '',
+      name: ''
+  };
+
+  constructor(private lancamentoService: LancamentoService, private messageService: MessageService, private confirmacaoService: ConfirmationService) {}
+
+  ngOnInit() {
+    this.lancamentoService.getLancamentos().then(data => this.lancamentos = data);
+  }
+
+  openNew() {
+    this.lancamento = {transaction_type: '', description:'', due_date: '', payment_date: '', amount: '', name: '' };
+    this.submitted = false;
+    this.lancamentoDialog = true;
+  }
+
+  editLancamento(lancamento: Lancamento) {
+    this.lancamento = {...lancamento};
+    this.lancamentoDialog = true;
+  }
+
+  deleteLancamento(lancamento: Lancamento) {
+    this.confirmacaoService.confirm({
+        message: 'Are you sure you want to delete ' + lancamento.id + '?',
+        header: 'Confirm',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+            this.lancamentos = this.lancamentos.filter(val => val.id !== lancamento.id);
+            this.lancamento = {transaction_type: '', description:'', due_date: '', payment_date: '', amount: '', name: '' }
+            this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Deleted', life: 3000});
+        }
+    });
+  }
+
+  hideDialog() {
+    this.lancamentoDialog = false;
+    this.submitted = false;
+  }
+
+  saveProduct() {
+    this.submitted = true;
+
+    if (this.lancamento.name.trim()) {
+      if (this.lancamento.id) {
+        this.lancamentos[this.findIndexById(this.lancamento.id)] = this.lancamento;
+        this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
+      }
+
+      else {
+        this.lancamento.id = this.createId();
+        this.lancamentos.push(this.lancamento);
+        this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Created', life: 3000});
+      }
+
+      this.lancamentos = [...this.lancamentos];
+      this.lancamentoDialog = false;
+      this.lancamento = {transaction_type: '', description:'', due_date: '', payment_date: '', amount: '', name: '' };
+    }
+  }
+  findIndexById(id: string): number {
+    let index = -1;
+      for (let i = 0; i < this.lancamentos.length; i++) {
+          if (this.lancamentos[i].id === id) {
+              index = i;
+              break;
+          }
+      }
+    return index;
+  }
+
+  createId(): string {
+    let id = '';
+    var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      for ( var i = 0; i < 5; i++ ) {
+          id += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+    return id;
+  }
 }
