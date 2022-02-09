@@ -3,3 +3,14 @@ body{
     font-family: Arial, Helvetica, sans-serif;
     color: #404C51
 }
+
+label {
+    font-weight: bold;
+}
+
+@media (min-width: 1000px){
+    .container {
+        width: 1400px;
+        margin: 0 auto;
+    }
+}

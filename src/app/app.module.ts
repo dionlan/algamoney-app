@@ -3,7 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { InputTextModule } from 'primeng/inputtext'
-import {ButtonModule} from 'primeng/button';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -12,7 +14,9 @@ import {ButtonModule} from 'primeng/button';
   imports: [
     BrowserModule,
     InputTextModule,
-    ButtonModule
+    ButtonModule,
+    TableModule,
+    ScrollingModule
 
   ],
   providers: [],
