@@ -27,9 +27,9 @@
         </div>
               
         <div class="p-fluid col-12" >
-            <p-table [value]="lancamentos" [paginator]="true" [rows]="10" [globalFilterFields]="['name', 'description', 'due_date','payment_date', 'amount', 'transaction_type']" 
+            <p-table [value]="lancamentos" [paginator]="true" [rows]="5" [globalFilterFields]="['name', 'description', 'due_date','payment_date', 'amount', 'transaction_type']" 
                 [showCurrentPageReport]="true" responsiveLayout="scroll" currentPageReportTemplate="Lançamentos de {first} até {last} de {totalRecords} registros" 
-                [rowsPerPageOptions]="[10,25,50]">
+                [rowsPerPageOptions]="[5,10,15]" styleClass="p-datatable-sm">
                 <ng-template pTemplate="header">
                     <tr>
                         <th>Pessoa</th>
@@ -59,6 +59,10 @@
                         </td>
 
                     </tr>
+                </ng-template>
+
+                <ng-template pTemplate="paginatorleft">
+                    <button pButton pRipple icon="pi pi-wallet" class="p-button-info" type="button" label="Novo Lançamento" [loading]="ativaLoadingButtonSearch"></button>
                 </ng-template>
 
             </p-table>
