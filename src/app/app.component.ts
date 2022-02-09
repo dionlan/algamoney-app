@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Lancamento } from './models/lancamento';
 import { LancamentoService } from './services/lancamentoService';
+import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,8 @@ export class AppComponent {
   lancamentoDialog: boolean = false;
   submitted: boolean = false;
   lancamentos: Lancamento[] = [];
+  ativaLoadingButtonSearch: boolean = false;
+  tipoLancamento: any [] = [];
 
   lancamento: Lancamento = {
       id: '',
@@ -31,10 +34,18 @@ export class AppComponent {
       name: ''
   };
 
-  constructor(private lancamentoService: LancamentoService, private messageService: MessageService, private confirmacaoService: ConfirmationService) {}
+  constructor(private lancamentoService: LancamentoService, 
+              private messageService: MessageService, 
+              private confirmacaoService: ConfirmationService,
+              private primengConfig: PrimeNGConfig) {}
 
   ngOnInit() {
     this.lancamentoService.getLancamentos().then(data => this.lancamentos = data);
+    this.primengConfig.ripple = true;
+    this.tipoLancamento = [
+      { label: 'RECEITA', value: 'RECEITA' },
+      { label: 'DESPESA', value: 'DESPESA' }
+    ]
   }
 
   openNew() {
@@ -66,19 +77,19 @@ export class AppComponent {
     this.submitted = false;
   }
 
-  saveProduct() {
+  saveLancamento() {
     this.submitted = true;
 
     if (this.lancamento.name.trim()) {
       if (this.lancamento.id) {
         this.lancamentos[this.findIndexById(this.lancamento.id)] = this.lancamento;
-        this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
+        this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Lançamento Atualizado', life: 3000});
       }
 
       else {
         this.lancamento.id = this.createId();
         this.lancamentos.push(this.lancamento);
-        this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Created', life: 3000});
+        this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Lancaçemento Salvo', life: 3000});
       }
 
       this.lancamentos = [...this.lancamentos];

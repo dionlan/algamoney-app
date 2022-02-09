@@ -2,7 +2,7 @@
 <div class="container">
     
     <div class="p-card">
-        <div class="py-3 md:px-3 bg-blue-200 text-white text-4xl">Lançamentos</div>
+        <div class="py-3 md:px-3 bg-green-200 text-white text-4xl">Lançamentos</div>
         <div class="p-fluid col-12">
             <div class="field grid pt-3">
                 <span class="p-float-label col-12">
@@ -22,7 +22,7 @@
                 </span> 
             </div>
             <div class="field grid col-2">
-                <button pButton type="submit" label="Pesquisar" ></button>
+                <button pButton pRipple icon="pi pi-search" class="p-button-info" type="button" label="Pesquisar" [loading]="ativaLoadingButtonSearch"></button>
             </div>
         </div>
               
@@ -48,10 +48,14 @@
                         <td>{{l.due_date}}</td>
                         <td>{{l.payment_date}}</td>
                         <td>{{l.amount | currency:'BRL'}}</td>
-                        <td>{{l.transaction_type}}</td>
                         <td>
-                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editLancamento(l)"></button>
-                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteLancamento(l)"></button>
+                            <span [class]="'transaction-type-badge status-' + (l.transaction_type ? l.transaction_type.toLowerCase() : '')">
+                                {{l.transaction_type}}
+                            </span>
+                        </td>
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info mr-2" (click)="editLancamento(l)"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteLancamento(l)"></button>
                         </td>
 
                     </tr>
@@ -68,6 +72,7 @@
                 <div class="field col">
                     <label for="name">Nome</label>
                 <input type="text" pInputText id="name" [(ngModel)]="lancamento.name" required autofocus /> 
+                <small class="invalid" *ngIf="submitted && !lancamento.name">Nome é obrigatório.</small>
                 </div>
                 <div class="field col">
                     <label for="amount">Valor</label>
@@ -82,9 +87,12 @@
 
             <div class="field">
                 <label for="transaction_type">Tipo</label>
-                <input type="text" pInputText id="transaction_type" [(ngModel)]="lancamento.transaction_type" required autofocus />
-                <small class="invalid" *ngIf="submitted && !lancamento.transaction_type">Tipo é obrigatório.</small>
-            </div>
+                    <p-dropdown [(ngModel)]="lancamento.transaction_type" inputId="transaction_type" [options]="tipoLancamento" placeholder="Selecione">
+                        <ng-template let-option pTemplate="item">
+                            <span [class]="'transaction-type-badge status-' + option.value">{{option.label}}</span>
+                        </ng-template>
+                    </p-dropdown>
+             </div>
             
             <div class="formgrid grid">
                 <div class="field col">
@@ -103,7 +111,7 @@
         
         <ng-template pTemplate="footer">
             <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-            <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
+            <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveLancamento()"></button>
         </ng-template>
     </p-dialog>
 

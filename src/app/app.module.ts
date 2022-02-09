@@ -23,6 +23,8 @@ import {RatingModule} from 'primeng/rating';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {DropdownModule} from 'primeng/dropdown';
 import {ProgressBarModule} from 'primeng/progressbar';
+import {RippleModule} from 'primeng/ripple';
+import {BadgeModule} from 'primeng/badge';
 
 
 
@@ -52,7 +54,9 @@ import {ProgressBarModule} from 'primeng/progressbar';
     RadioButtonModule,
 
     DropdownModule,
-    ProgressBarModule
+    ProgressBarModule,
+    RippleModule,
+    BadgeModule
 
   ],
   
