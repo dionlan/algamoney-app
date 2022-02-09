@@ -29,8 +29,8 @@
               
         <div class="p-fluid col-12" >
             <p-table [value]="lancamentos" [paginator]="true" [rows]="5" [globalFilterFields]="['name', 'description', 'due_date','payment_date', 'amount', 'transaction_type']" 
-                [showCurrentPageReport]="true" responsiveLayout="scroll" currentPageReportTemplate="Lançamentos de {first} até {last} de {totalRecords} registros" 
-                [rowsPerPageOptions]="[5,10,15]" styleClass="p-datatable-sm">
+                [showCurrentPageReport]="true" responsiveLayout="stack" currentPageReportTemplate="Lançamentos de {first} até {last} de {totalRecords} registros" 
+                [rowsPerPageOptions]="[5,10,15]" styleClass="p-datatable-sm" >
                 <ng-template pTemplate="header">
                     <tr>
                         <th>Pessoa</th>
@@ -44,12 +44,12 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-l>
                     <tr>
-                        <td>{{l.name}}</td>
-                        <td>{{l.description}}</td>
-                        <td>{{l.due_date}}</td>
-                        <td>{{l.payment_date}}</td>
-                        <td>{{l.amount | currency:'BRL'}}</td>
-                        <td>
+                        <td><span class="p-column-title">Nome</span>{{l.name}}</td>
+                        <td><span class="p-column-title">Descrição</span>{{l.description}}</td>
+                        <td><span class="p-column-title">Vencimento</span>{{l.due_date}}</td>
+                        <td><span class="p-column-title">Pagamento</span>{{l.payment_date}}</td>
+                        <td><span class="p-column-title">Valor</span>{{l.amount | currency:'BRL'}}</td>
+                        <td><span class="p-column-title">Tipo</span>
                             <span [class]="'transaction-type-badge status-' + (l.transaction_type ? l.transaction_type.toLowerCase() : '')">
                                 {{l.transaction_type}}
                             </span>
