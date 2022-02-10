@@ -28,7 +28,7 @@
         </div>
               
         <div class="p-fluid col-12" >
-            <p-table [value]="lancamentos" [paginator]="true" [rows]="5" [globalFilterFields]="['name', 'description', 'due_date','payment_date', 'amount', 'transaction_type']" 
+            <p-table [value]="transactions" [paginator]="true" [rows]="5" [globalFilterFields]="['name', 'description', 'due_date','payment_date', 'amount', 'transaction_type']" 
                 [showCurrentPageReport]="true" responsiveLayout="stack" currentPageReportTemplate="Lançamentos de {first} até {last} de {totalRecords} registros" 
                 [rowsPerPageOptions]="[5,10,15]" styleClass="p-datatable-sm" >
                 <ng-template pTemplate="header">
@@ -55,10 +55,10 @@
                             </span>
                         </td>
                         <td>
-                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info mr-2" (click)="editLancamento(l)"
+                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info mr-2" (click)="editTransaction(l)"
                             pTooltip="Editar" tooltipPosition="top"></button>
 
-                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteLancamento(l)"
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteTransaction(l)"
                             pTooltip="Deletar" tooltipPosition="top"></button>
                         </td>
 
@@ -74,29 +74,29 @@
         </div>
     </div>
 
-    <p-dialog [(visible)]="lancamentoDialog" [style]="{width: '550px'}" header="Atualização do Lançamento" [modal]="true" styleClass="p-fluid">
+    <p-dialog [(visible)]="transactionDialog" [style]="{width: '550px'}" header="Atualização do Lançamento" [modal]="true" styleClass="p-fluid">
         <ng-template pTemplate="content">
 
             <div class="formgrid grid">
                 <div class="field col">
                     <label for="name">Nome</label>
-                <input type="text" pInputText id="name" [(ngModel)]="lancamento.name" required autofocus /> 
-                <small class="invalid" *ngIf="submitted && !lancamento.name">Nome é obrigatório.</small>
+                <input type="text" pInputText id="name" [(ngModel)]="transaction.name" required autofocus /> 
+                <small class="invalid" *ngIf="submitted && !transaction.name">Nome é obrigatório.</small>
                 </div>
                 <div class="field col">
                     <label for="amount">Valor</label>
-                    <p-inputNumber id="amount" [(ngModel)]="lancamento.amount" mode="currency" currency="BRL" locale="pt-BR" ></p-inputNumber> 
+                    <p-inputNumber id="amount" [(ngModel)]="transaction.amount" mode="currency" currency="BRL" locale="pt-BR" ></p-inputNumber> 
                 </div>
             </div>
 
             <div class="field">
                 <label for="description">Descrição</label>
-                <textarea id="description" pInputTextarea [(ngModel)]="lancamento.description" required rows="3" cols="20" [autoResize]="true"></textarea>
+                <textarea id="description" pInputTextarea [(ngModel)]="transaction.description" required rows="3" cols="20" [autoResize]="true"></textarea>
             </div>
 
             <div class="field">
                 <label for="transaction_type">Tipo</label>
-                    <p-dropdown [(ngModel)]="lancamento.transaction_type" inputId="transaction_type" [options]="tipoLancamento" placeholder="Selecione">
+                    <p-dropdown [(ngModel)]="transaction.transaction_type" inputId="transaction_type" [options]="tipoTransaction" placeholder="Selecione">
                         <ng-template let-option pTemplate="item">
                             <span [class]="'transaction-type-badge status-' + option.value">{{option.label}}</span>
                         </ng-template>
@@ -106,11 +106,11 @@
             <div class="formgrid grid">
                 <div class="field col">
                     <label for="due_date">Vencimento</label>
-                    <p-calendar id="due_date" [(ngModel)]="lancamento.due_date"> </p-calendar>
+                    <p-calendar id="due_date" [(ngModel)]="transaction.due_date"> </p-calendar>
                 </div>
                 <div class="field col">
                     <label for="payment_date">Pagamento</label>
-                    <p-calendar id="payment_date" [(ngModel)]="lancamento.payment_date"></p-calendar>
+                    <p-calendar id="payment_date" [(ngModel)]="transaction.payment_date"></p-calendar>
                 </div>
             </div>
 
@@ -120,7 +120,7 @@
         
         <ng-template pTemplate="footer">
             <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-            <button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text" (click)="saveLancamento()"></button>
+            <button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text" (click)="saveTransaction()"></button>
         </ng-template>
     </p-dialog>
 

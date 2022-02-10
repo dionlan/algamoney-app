@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { Lancamento } from '../models/lancamento';
-import { LancamentoService } from '../services/lancamentoService';
+import { TransactionService } from '../services/transactionService';
 import { PrimeNGConfig } from 'primeng/api';
+import { Transaction } from '../models/transaction';
 
 @Component({
   selector: 'app-transactions-read',
@@ -11,13 +11,13 @@ import { PrimeNGConfig } from 'primeng/api';
 })
 export class TransactionsReadComponent implements OnInit {
 
-  lancamentoDialog: boolean = false;
+  transactionDialog: boolean = false;
   submitted: boolean = false;
-  lancamentos: Lancamento[] = [];
+  transactions: Transaction[] = [];
   ativaLoadingButtonSearch: boolean = false;
-  tipoLancamento: any [] = [];
+  tipoTransaction: any [] = [];
 
-  lancamento: Lancamento = {
+  transaction: Transaction = {
       id: '',
       transaction_type: '',
       description: '',
@@ -27,73 +27,73 @@ export class TransactionsReadComponent implements OnInit {
       name: ''
   };
 
-  constructor(private lancamentoService: LancamentoService, 
+  constructor(private transactionService: TransactionService, 
               private messageService: MessageService, 
               private confirmacaoService: ConfirmationService,
               private primengConfig: PrimeNGConfig) {}
 
   ngOnInit(): void {
-    this.lancamentoService.getLancamentos().then(data => this.lancamentos = data);
+    this.transactionService.getTransactions().then(data => this.transactions = data);
     this.primengConfig.ripple = true;
-    this.tipoLancamento = [
+    this.tipoTransaction = [
       { label: 'RECEITA', value: 'RECEITA' },
       { label: 'DESPESA', value: 'DESPESA' }
     ]
   }
 
   openNew() {
-    this.lancamento = {transaction_type: '', description:'', due_date: '', payment_date: '', amount: '', name: '' };
+    this.transaction = {transaction_type: '', description:'', due_date: '', payment_date: '', amount: '', name: '' };
     this.submitted = false;
-    this.lancamentoDialog = true;
+    this.transactionDialog = true;
   }
 
-  editLancamento(lancamento: Lancamento) {
-    this.lancamento = {...lancamento};
-    this.lancamentoDialog = true;
+  editTransaction(transaction: Transaction) {
+    this.transaction = {...transaction};
+    this.transactionDialog = true;
   }
 
-  deleteLancamento(lancamento: Lancamento) {
+  deleteTransaction(transaction: Transaction) {
     this.confirmacaoService.confirm({
-        message: 'Are you sure you want to delete ' + lancamento.id + '?',
+        message: 'Are you sure you want to delete ' + transaction.id + '?',
         header: 'Confirm',
         icon: 'pi pi-exclamation-triangle',
         accept: () => {
-            this.lancamentos = this.lancamentos.filter(val => val.id !== lancamento.id);
-            this.lancamento = {transaction_type: '', description:'', due_date: '', payment_date: '', amount: '', name: '' }
-            this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Deleted', life: 3000});
+            this.transactions = this.transactions.filter(val => val.id !== transaction.id);
+            this.transaction = {transaction_type: '', description:'', due_date: '', payment_date: '', amount: '', name: '' }
+            this.messageService.add({severity:'success', summary: 'Successful', detail: 'Transação Excluída', life: 3000});
         }
     });
   }
 
   hideDialog() {
-    this.lancamentoDialog = false;
+    this.transactionDialog = false;
     this.submitted = false;
   }
 
-  saveLancamento() {
+  saveTransaction() {
     this.submitted = true;
 
-    if (this.lancamento.name.trim()) {
-      if (this.lancamento.id) {
-        this.lancamentos[this.findIndexById(this.lancamento.id)] = this.lancamento;
+    if (this.transaction.name.trim()) {
+      if (this.transaction.id) {
+        this.transactions[this.findIndexById(this.transaction.id)] = this.transaction;
         this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Lançamento Atualizado', life: 3000});
       }
 
       else {
-        this.lancamento.id = this.createId();
-        this.lancamentos.push(this.lancamento);
+        this.transaction.id = this.createId();
+        this.transactions.push(this.transaction);
         this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Lancaçemento Salvo', life: 3000});
       }
 
-      this.lancamentos = [...this.lancamentos];
-      this.lancamentoDialog = false;
-      this.lancamento = {transaction_type: '', description:'', due_date: '', payment_date: '', amount: '', name: '' };
+      this.transactions = [...this.transactions];
+      this.transactionDialog = false;
+      this.transaction = {transaction_type: '', description:'', due_date: '', payment_date: '', amount: '', name: '' };
     }
   }
   findIndexById(id: string): number {
     let index = -1;
-      for (let i = 0; i < this.lancamentos.length; i++) {
-          if (this.lancamentos[i].id === id) {
+      for (let i = 0; i < this.transactions.length; i++) {
+          if (this.transactions[i].id === id) {
               index = i;
               break;
           }

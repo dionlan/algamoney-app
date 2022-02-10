@@ -1,4 +1,4 @@
-export interface Lancamento{
+export interface Transaction { 
     id?: string;
     transaction_type: string;
     description: any;
