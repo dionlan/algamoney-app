@@ -17,22 +17,18 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { FormsModule } from '@angular/forms';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputNumberModule } from 'primeng/inputnumber';
-import {FileUploadModule} from 'primeng/fileupload';
-import {ToolbarModule} from 'primeng/toolbar';
-import {RatingModule} from 'primeng/rating';
-import {RadioButtonModule} from 'primeng/radiobutton';
-import {DropdownModule} from 'primeng/dropdown';
-import {ProgressBarModule} from 'primeng/progressbar';
-import {RippleModule} from 'primeng/ripple';
-import {BadgeModule} from 'primeng/badge';
-import {TooltipModule} from 'primeng/tooltip';
-import {CalendarModule} from 'primeng/calendar';
-
-
+import { ToolbarModule } from 'primeng/toolbar';
+import { DropdownModule } from 'primeng/dropdown';
+import { RippleModule } from 'primeng/ripple';
+import { BadgeModule } from 'primeng/badge';
+import { TooltipModule } from 'primeng/tooltip';
+import { CalendarModule } from 'primeng/calendar';
+import { TransactionsReadComponent } from './transactions-read/transactions-read.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent, 
+    TransactionsReadComponent
   ],
 
   imports: [
@@ -50,17 +46,15 @@ import {CalendarModule} from 'primeng/calendar';
     RouterModule,
     InputTextareaModule,
     InputNumberModule,
-    FileUploadModule,
     ToolbarModule,
-    RatingModule,
-    RadioButtonModule,
 
     DropdownModule,
-    ProgressBarModule,
     RippleModule,
     BadgeModule,
     TooltipModule,
-    CalendarModule
+    CalendarModule,
+
+    
 
   ],
   
