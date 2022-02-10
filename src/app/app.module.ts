@@ -26,6 +26,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { MenubarModule } from 'primeng/menubar';
+import { DividerModule } from 'primeng/divider';
 
 import { TransactionsReadComponent } from './transactions-read/transactions-read.component';
 import { NavComponent } from './template/nav/nav.component';
@@ -63,6 +64,7 @@ import { NavComponent } from './template/nav/nav.component';
     TabMenuModule,
     TieredMenuModule,
     MenubarModule,
+    DividerModule,
 
     RouterModule.forRoot([
       {path:'',component: AppComponent},
