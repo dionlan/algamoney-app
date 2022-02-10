@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {RouterModule} from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { InputTextModule } from 'primeng/inputtext'
@@ -23,12 +23,20 @@ import { RippleModule } from 'primeng/ripple';
 import { BadgeModule } from 'primeng/badge';
 import { TooltipModule } from 'primeng/tooltip';
 import { CalendarModule } from 'primeng/calendar';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+import { MenubarModule } from 'primeng/menubar';
+
 import { TransactionsReadComponent } from './transactions-read/transactions-read.component';
+import { NavComponent } from './template/nav/nav.component';
+
 
 @NgModule({
   declarations: [
     AppComponent, 
+    NavComponent,
     TransactionsReadComponent
+   
   ],
 
   imports: [
@@ -43,7 +51,6 @@ import { TransactionsReadComponent } from './transactions-read/transactions-read
     ConfirmDialogModule,
     FormsModule,
     BrowserAnimationsModule,
-    RouterModule,
     InputTextareaModule,
     InputNumberModule,
     ToolbarModule,
@@ -53,8 +60,13 @@ import { TransactionsReadComponent } from './transactions-read/transactions-read
     BadgeModule,
     TooltipModule,
     CalendarModule,
+    TabMenuModule,
+    TieredMenuModule,
+    MenubarModule,
 
-    
+    RouterModule.forRoot([
+      {path:'',component: AppComponent},
+    ])
 
   ],
   
