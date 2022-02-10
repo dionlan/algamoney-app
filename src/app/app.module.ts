@@ -30,13 +30,15 @@ import { DividerModule } from 'primeng/divider';
 
 import { TransactionsReadComponent } from './transactions-read/transactions-read.component';
 import { NavComponent } from './template/nav/nav.component';
+import { PersonReadComponent } from './person-read/person-read.component';
 
 
 @NgModule({
   declarations: [
     AppComponent, 
     NavComponent,
-    TransactionsReadComponent
+    TransactionsReadComponent,
+    PersonReadComponent
    
   ],
 
