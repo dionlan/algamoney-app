@@ -49,6 +49,7 @@ export class TransactionsReadComponent implements OnInit {
 
   editTransaction(transaction: Transaction) {
     this.transaction = {...transaction};
+    console.log(this.transaction)
     this.transactionDialog = true;
   }
 

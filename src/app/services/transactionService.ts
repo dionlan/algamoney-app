@@ -5,8 +5,6 @@ import { Transaction } from '../models/transaction';
 @Injectable()
 export class TransactionService {
 
-  lancamentos: Transaction[] = []
-
   constructor(private http: HttpClient) { }
 
   getTransactions() {

@@ -26,7 +26,7 @@
                 "name" : "Ricardo Pereira",
                 "district" : "Aparecida",
                 "state" : "Bahia",
-                "active" : 1
+                "active" : 0
             },
             {
                 "id" : "5",
@@ -47,7 +47,7 @@
                 "name" : "Henrique Medeiros",
                 "district" : "Centro",
                 "state" : "Rio de Janeiro",
-                "active" : 1
+                "active" : 0
             },
             {
                 "id" : "8",
@@ -68,7 +68,7 @@
                 "name" : "Isabela Martins",
                 "district" : "Vigilato",
                 "state" : "Amazonas",
-                "active" : 1
+                "active" : 0
             }
         ]
 }

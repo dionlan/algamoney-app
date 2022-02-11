@@ -46,8 +46,8 @@
                     <tr>
                         <td><span class="p-column-title">Nome</span>{{l.name}}</td>
                         <td><span class="p-column-title">Descrição</span>{{l.description}}</td>
-                        <td><span class="p-column-title">Vencimento</span>{{l.due_date}}</td>
-                        <td><span class="p-column-title">Pagamento</span>{{l.payment_date}}</td>
+                        <td><span class="p-column-title">Vencimento</span>{{l.due_date | date:'dd/MM/y'}}</td>
+                        <td><span class="p-column-title">Pagamento</span>{{l.payment_date | date:'dd/MM/y'}}</td>
                         <td><span class="p-column-title">Valor</span>{{l.amount | currency:'BRL'}}</td>
                         <td><span class="p-column-title">Tipo</span>
                             <span [class]="'transaction-type-badge status-' + (l.transaction_type ? l.transaction_type.toLowerCase() : '')">
@@ -105,8 +105,8 @@
             
             <div class="formgrid grid">
                 <div class="field col">
-                    <label for="due_date">Vencimento</label>
-                    <p-calendar id="due_date" [(ngModel)]="transaction.due_date"> </p-calendar>
+                    <label for="due_date">Vencimento {{transaction.due_date | date: 'dd/MM/y' }}</label>
+                    <p-calendar id="due_date" [ngModel]="transaction.due_date | date: 'dd/MM/y'" ></p-calendar>
                 </div>
                 <div class="field col">
                     <label for="payment_date">Pagamento</label>

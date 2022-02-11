@@ -8,7 +8,7 @@ import { InputTextModule } from 'primeng/inputtext'
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { LancamentoService } from './services/lancamentoService';
+import { TransactionService } from './services/transactionService';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastModule } from 'primeng/toast';
@@ -27,10 +27,12 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { MenubarModule } from 'primeng/menubar';
 import { DividerModule } from 'primeng/divider';
+import {FocusTrapModule} from 'primeng/focustrap';
 
 import { TransactionsReadComponent } from './transactions-read/transactions-read.component';
 import { NavComponent } from './template/nav/nav.component';
 import { PersonReadComponent } from './person-read/person-read.component';
+import { PersonService } from './services/personService';
 
 
 @NgModule({
@@ -75,6 +77,6 @@ import { PersonReadComponent } from './person-read/person-read.component';
   ],
   
   bootstrap: [AppComponent],
-  providers: [MessageService, ConfirmationService, LancamentoService]
+  providers: [MessageService, ConfirmationService, TransactionService, PersonService]
 })
 export class AppModule { }
